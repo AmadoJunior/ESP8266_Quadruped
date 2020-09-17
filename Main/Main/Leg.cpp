@@ -1,8 +1,6 @@
-#include <Arduino.h>
-#include "Adafruit_PWMServoDriver.h"
 #include "Leg.h"
-#include <math.h>
 
+//Freq
 #define FREQUENCY 50
 #define MAX_PULSE_WIDTH 2400
 #define MIN_PULSE_WIDTH 575

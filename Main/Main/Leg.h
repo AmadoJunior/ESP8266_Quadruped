@@ -1,6 +1,6 @@
+
 #ifndef LEG_H
 #define LEG_H
-
 #include "Adafruit_PWMServoDriver.h"
 
 class Leg{
