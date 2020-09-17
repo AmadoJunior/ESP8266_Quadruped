@@ -12,9 +12,9 @@ Leg::Leg(){
     coxaLenMm = 27;
     femurLenMm = 55;
     tibiaLenMm = 80;
-    coxaOffset = 500;
-    femurOffset = 500;
-    tibiaOffset = 500;
+    coxaOffset = 0;
+    femurOffset = 0;
+    tibiaOffset = 0;
 }
 
 Leg::Leg(int legNum, int coxaPin, int femurPin, int tibiaPin) : legNum(legNum), coxaPin(coxaPin), femurPin(femurPin), tibiaPin(tibiaPin) {
@@ -22,9 +22,9 @@ Leg::Leg(int legNum, int coxaPin, int femurPin, int tibiaPin) : legNum(legNum), 
     coxaLenMm = 27;
     femurLenMm = 55;
     tibiaLenMm = 80;
-    coxaOffset = 500;
-    femurOffset = 500;
-    tibiaOffset = 500;
+    coxaOffset = 0;
+    femurOffset = 0;
+    tibiaOffset = 0;
 }
 void Leg::setAngles(double x, double y, double z){
     
@@ -103,18 +103,18 @@ void Leg::setAngles(double x, double y, double z){
     //Calculating Tibia &  Femur Angle
       //Finding Distance from Point
       double hyp = sqrt(pow(newX, 2) + pow(z, 2));
-      Serial.println("");
-      Serial.println("Hypothenus");
-      Serial.println(hyp);
+      // Serial.println("");
+      // Serial.println("Hypothenus");
+      // Serial.println(hyp);
     
       //Alpha
       double alpha = pow(femurLenMm, 2) + pow(tibiaLenMm, 2) - pow(newX, 2) - pow(z, 2);
       alpha = alpha / (2 * femurLenMm * tibiaLenMm);
       alpha = acos(alpha);
       alpha = (alpha / PI) * 180;
-      Serial.println("");
-      Serial.println("Alpha");
-      Serial.println(alpha);
+      // Serial.println("");
+      // Serial.println("Alpha");
+      // Serial.println(alpha);
     
       //Q2
       double q2 = 180 - alpha;
@@ -128,20 +128,22 @@ void Leg::setAngles(double x, double y, double z){
       beta = beta / (femurLenMm + tibiaLenMm * cos(q2));
       beta = atan(beta);
       beta = (beta / PI) * 180;
-      Serial.println("");
-      Serial.println("Beta");
-      Serial.println(beta);
+      // Serial.println("");
+      // Serial.println("Beta");
+      // Serial.println(beta);
     
       //Gamma
       double gamma = atan(z/newX);
       gamma = (gamma / PI) * 180;
-      Serial.println("");
-      Serial.println("Gamma");
-      Serial.println(gamma);
+      // Serial.println("");
+      // Serial.println("Gamma");
+      // Serial.println(gamma);
     
       //Q1
       double q1 = gamma + beta;
       q2 = q2 * 180/PI;
+      Serial.println("Q1");
+      Serial.println(q1);
 
     //Setting Tibia & Femur ===========================================
 
@@ -214,37 +216,38 @@ int returnPulseWidth(double angle){
 
 void Leg::updatePos(){
     if(legNum == 1){
-        pwm.setPWM(0, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
-        pwm.setPWM(1, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
-        pwm.setPWM(2, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
+        pwm.setPWM(0, 0, returnPulseWidth(coxaAngle + coxaOffset ));
+        pwm.setPWM(1, 0, returnPulseWidth(femurAngle + femurOffset ));
+        pwm.setPWM(2, 0, returnPulseWidth(tibiaAngle + tibiaOffset ));
     } else if(legNum == 2){
-        pwm.setPWM(3, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
-        pwm.setPWM(4, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
-        pwm.setPWM(5, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
+        pwm.setPWM(3, 0, returnPulseWidth(coxaAngle + coxaOffset ));
+        pwm.setPWM(4, 0, returnPulseWidth(femurAngle + femurOffset ));
+        pwm.setPWM(5, 0, returnPulseWidth(tibiaAngle + tibiaOffset ));
     } else if(legNum == 3){
-        pwm.setPWM(6, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
-        pwm.setPWM(7, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
-        pwm.setPWM(8, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));        
+        pwm.setPWM(6, 0, returnPulseWidth(coxaAngle + coxaOffset ));
+        pwm.setPWM(7, 0, returnPulseWidth(femurAngle + femurOffset ));
+        pwm.setPWM(8, 0, returnPulseWidth(tibiaAngle + tibiaOffset ));        
     } else if(legNum == 4){
-        pwm.setPWM(9, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
-        pwm.setPWM(10, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
-        pwm.setPWM(11, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
+        pwm.setPWM(9, 0, returnPulseWidth(coxaAngle + coxaOffset ));
+        pwm.setPWM(10, 0, returnPulseWidth(femurAngle + femurOffset ));
+        pwm.setPWM(11, 0, returnPulseWidth(tibiaAngle + tibiaOffset ));
     }
 }
 
 void Leg::init(){
+  Serial.println("Initiation ===========================================================");
     switch(legNum){
         case 1:
-            setAngles(-90,90,45);
+            setAngles(-100,80,45);
             break;
         case 2:
-            setAngles(-90,-90,45);
+            setAngles(-100,-80,45);
             break;
         case 3:
-            setAngles(90,90,45);
+            setAngles(100,80,45);
             break;
         case 4:
-            setAngles(90,-90,45);
+            setAngles(100,-80,45);
             break;
     }
     updatePos();
@@ -268,28 +271,19 @@ void Leg::lift(){
 }
 
 void Leg::calibrate(double x, double y, double z){
-  init();
+  Serial.println("Calibration ===========================================================");
   setAngles(x, y, z);
-  if(legNum == 1){
+  
     coxaOffset =  prevCoxaAngle-coxaAngle;
+    Serial.println("coxaOff");
+    Serial.println(coxaOffset);
     femurOffset = prevFemurAngle-femurAngle;
+    Serial.println("femurOff");
+    Serial.println(femurOffset);
     tibiaOffset = prevTibiaAngle-tibiaAngle;
-  } else if(legNum == 2){
-    coxaOffset =  prevCoxaAngle-coxaAngle;
-    femurOffset = prevFemurAngle-femurAngle;
-    tibiaOffset = prevTibiaAngle-tibiaAngle;
-  }
-  else if(legNum == 3){
-    coxaOffset =  prevCoxaAngle-coxaAngle;
-    femurOffset = prevFemurAngle-femurAngle;
-    tibiaOffset = prevTibiaAngle-tibiaAngle;
-  }
-  else if(legNum == 4){
-    coxaOffset =  prevCoxaAngle-coxaAngle;
-    femurOffset = prevFemurAngle-femurAngle;
-    tibiaOffset = prevTibiaAngle-tibiaAngle;
-  }
-  init();
+    Serial.println("tibiaOff");
+    Serial.println(tibiaOffset);
+
 }
 
 void Leg::setCoxaAngle(double angle){

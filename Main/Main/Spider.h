@@ -11,6 +11,7 @@ class Spider{
         Spider(int n);
         void creepGait();
         void initPwm();
+        void initCalibration();
 };
 
 #endif

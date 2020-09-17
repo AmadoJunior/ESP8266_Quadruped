@@ -19,8 +19,7 @@
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE",
-                "USBCON"
+                "_UNICODE"
             ],
             "intelliSenseMode": "msvc-x64"
         }
