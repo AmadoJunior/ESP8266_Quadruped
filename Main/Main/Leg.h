@@ -18,6 +18,9 @@ class Leg{
         double prevCoxaAngle;
         double prevFemurAngle;
         double prevTibiaAngle;
+        double coxaOffset;
+        double femurOffset;
+        double tibiaOffset;
     public: 
         Adafruit_PWMServoDriver pwm;
         Leg();
@@ -28,6 +31,7 @@ class Leg{
         void setCoxaAngle(double angle);
         int returnPulseWidht(double angle);
         void init();
+        void calibrate(double x, double y, double z);
         //Setters
         void setPins(int coxaPin, int femurPin, int tibiaPin);
         void setLegNum(int legNum);

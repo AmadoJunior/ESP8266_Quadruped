@@ -3,19 +3,18 @@
 #include "Leg.h"
 #include <math.h>
 
-//PULSE WIDTH =========================================================================
-#define MIN_PULSE_WIDTH 575
-#define MAX_PULSE_WIDTH 2400
 #define FREQUENCY 50
+#define MAX_PULSE_WIDTH 2400
+#define MIN_PULSE_WIDTH 575
 
 Leg::Leg(){
     pwm = Adafruit_PWMServoDriver(0x40);
     coxaLenMm = 27;
     femurLenMm = 55;
     tibiaLenMm = 80;
-    prevCoxaAngle = -1;
-    prevFemurAngle = -1;
-    prevTibiaAngle = -1;
+    coxaOffset = 500;
+    femurOffset = 500;
+    tibiaOffset = 500;
 }
 
 Leg::Leg(int legNum, int coxaPin, int femurPin, int tibiaPin) : legNum(legNum), coxaPin(coxaPin), femurPin(femurPin), tibiaPin(tibiaPin) {
@@ -23,6 +22,9 @@ Leg::Leg(int legNum, int coxaPin, int femurPin, int tibiaPin) : legNum(legNum), 
     coxaLenMm = 27;
     femurLenMm = 55;
     tibiaLenMm = 80;
+    coxaOffset = 500;
+    femurOffset = 500;
+    tibiaOffset = 500;
 }
 void Leg::setAngles(double x, double y, double z){
     
@@ -212,178 +214,40 @@ int returnPulseWidth(double angle){
 
 void Leg::updatePos(){
     if(legNum == 1){
-
-        if(prevFemurAngle > coxaAngle){
-            for(int i = prevCoxaAngle; i > coxaAngle; i--){
-                pwm.setPWM(0, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevCoxaAngle; i < coxaAngle; i++){
-                pwm.setPWM(0, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevFemurAngle > femurAngle){
-            for(int i = prevFemurAngle; i > femurAngle; i--){
-                pwm.setPWM(1, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevFemurAngle; i < femurAngle; i++){
-                pwm.setPWM(1, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevTibiaAngle > tibiaAngle){
-            for(int i = prevTibiaAngle; i > tibiaAngle; i--){
-                pwm.setPWM(2, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevTibiaAngle; i < tibiaAngle; i++){
-                pwm.setPWM(2, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        
+        pwm.setPWM(0, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
+        pwm.setPWM(1, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
+        pwm.setPWM(2, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
     } else if(legNum == 2){
-        if(prevFemurAngle > coxaAngle){
-            for(int i = prevCoxaAngle; i > coxaAngle; i--){
-                pwm.setPWM(3, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevCoxaAngle; i < coxaAngle; i++){
-                pwm.setPWM(3, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevFemurAngle > femurAngle){
-            for(int i = prevFemurAngle; i > femurAngle; i--){
-                pwm.setPWM(4, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevFemurAngle; i < femurAngle; i++){
-                pwm.setPWM(4, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevTibiaAngle > tibiaAngle){
-            for(int i = prevTibiaAngle; i > tibiaAngle; i--){
-                pwm.setPWM(5, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevTibiaAngle; i < tibiaAngle; i++){
-                pwm.setPWM(5, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
+        pwm.setPWM(3, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
+        pwm.setPWM(4, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
+        pwm.setPWM(5, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
     } else if(legNum == 3){
-        if(prevFemurAngle > coxaAngle){
-            for(int i = prevCoxaAngle; i > coxaAngle; i--){
-                pwm.setPWM(6, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevCoxaAngle; i < coxaAngle; i++){
-                pwm.setPWM(6, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevFemurAngle > femurAngle){
-            for(int i = prevFemurAngle; i > femurAngle; i--){
-                pwm.setPWM(7, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevFemurAngle; i < femurAngle; i++){
-                pwm.setPWM(7, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevTibiaAngle > tibiaAngle){
-            for(int i = prevTibiaAngle; i > tibiaAngle; i--){
-                pwm.setPWM(8, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevTibiaAngle; i < tibiaAngle; i++){
-                pwm.setPWM(8, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
+        pwm.setPWM(6, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
+        pwm.setPWM(7, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
+        pwm.setPWM(8, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));        
     } else if(legNum == 4){
-        if(prevFemurAngle > coxaAngle){
-            for(int i = prevCoxaAngle; i > coxaAngle; i--){
-                pwm.setPWM(9, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevCoxaAngle; i < coxaAngle; i++){
-                pwm.setPWM(9, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevFemurAngle > femurAngle){
-            for(int i = prevFemurAngle; i > femurAngle; i--){
-                pwm.setPWM(10, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevFemurAngle; i < femurAngle; i++){
-                pwm.setPWM(10, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
-        if(prevTibiaAngle > tibiaAngle){
-            for(int i = prevTibiaAngle; i > tibiaAngle; i--){
-                pwm.setPWM(11, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        } else {
-            for(int i = prevTibiaAngle; i < tibiaAngle; i++){
-                pwm.setPWM(11, 0, returnPulseWidth(i));
-                delay(10);
-            }
-        }
+        pwm.setPWM(9, 0, returnPulseWidth(coxaAngle + (coxaOffset == 500 ? 0 : coxaOffset) ));
+        pwm.setPWM(10, 0, returnPulseWidth(femurAngle + (femurOffset == 500 ? 0 : femurOffset) ));
+        pwm.setPWM(11, 0, returnPulseWidth(tibiaAngle + (tibiaOffset == 500 ? 0 : tibiaOffset) ));
     }
 }
 
 void Leg::init(){
     switch(legNum){
         case 1:
-            setAngles(-60,60,-60);
+            setAngles(-90,90,45);
             break;
         case 2:
-            setAngles(-60,-60,-60);
+            setAngles(-90,-90,45);
             break;
         case 3:
-            setAngles(60,60,-60);
+            setAngles(90,90,45);
             break;
         case 4:
-            setAngles(60,-60,-60);
+            setAngles(90,-90,45);
             break;
     }
-    if(legNum == 1){
-        pwm.setPWM(0, 0, returnPulseWidth(coxaAngle));
-        pwm.setPWM(1, 0, returnPulseWidth(femurAngle));
-        pwm.setPWM(2, 0, returnPulseWidth(tibiaAngle));
-    } else if(legNum == 2){
-        pwm.setPWM(3, 0, returnPulseWidth(coxaAngle));
-        pwm.setPWM(4, 0, returnPulseWidth(femurAngle));
-        pwm.setPWM(5, 0, returnPulseWidth(tibiaAngle));
-    } else if(legNum == 3){
-        pwm.setPWM(6, 0, returnPulseWidth(coxaAngle));
-        pwm.setPWM(7, 0, returnPulseWidth(femurAngle));
-        pwm.setPWM(8, 0, returnPulseWidth(tibiaAngle));        
-    } else if(legNum == 4){
-        pwm.setPWM(9, 0, returnPulseWidth(coxaAngle));
-        pwm.setPWM(10, 0, returnPulseWidth(femurAngle));
-        pwm.setPWM(11, 0, returnPulseWidth(tibiaAngle));
-    }
+    updatePos();
 }
 
 void Leg::lift(){
@@ -401,6 +265,31 @@ void Leg::lift(){
             pwm.setPWM(10, 0, returnPulseWidth(170));
             break;
     }
+}
+
+void Leg::calibrate(double x, double y, double z){
+  init();
+  setAngles(x, y, z);
+  if(legNum == 1){
+    coxaOffset =  prevCoxaAngle-coxaAngle;
+    femurOffset = prevFemurAngle-femurAngle;
+    tibiaOffset = prevTibiaAngle-tibiaAngle;
+  } else if(legNum == 2){
+    coxaOffset =  prevCoxaAngle-coxaAngle;
+    femurOffset = prevFemurAngle-femurAngle;
+    tibiaOffset = prevTibiaAngle-tibiaAngle;
+  }
+  else if(legNum == 3){
+    coxaOffset =  prevCoxaAngle-coxaAngle;
+    femurOffset = prevFemurAngle-femurAngle;
+    tibiaOffset = prevTibiaAngle-tibiaAngle;
+  }
+  else if(legNum == 4){
+    coxaOffset =  prevCoxaAngle-coxaAngle;
+    femurOffset = prevFemurAngle-femurAngle;
+    tibiaOffset = prevTibiaAngle-tibiaAngle;
+  }
+  init();
 }
 
 void Leg::setCoxaAngle(double angle){
