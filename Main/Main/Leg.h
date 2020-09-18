@@ -5,36 +5,36 @@
 
 class Leg{
     private:
-        int legNum;
-        int coxaPin;
-        int femurPin;
-        int tibiaPin;
-        double coxaLenMm;
-        double femurLenMm;
-        double tibiaLenMm;
-        double coxaAngle;
-        double femurAngle;
-        double tibiaAngle;
-        double prevCoxaAngle;
-        double prevFemurAngle;
-        double prevTibiaAngle;
-        double coxaOffset;
-        double femurOffset;
-        double tibiaOffset;
+        byte legNum;
+        byte coxaPin;
+        byte femurPin;
+        byte tibiaPin;
+        float coxaLenMm;
+        float femurLenMm;
+        float tibiaLenMm;
+        float coxaAngle;
+        float femurAngle;
+        float tibiaAngle;
+        float prevCoxaAngle;
+        float prevFemurAngle;
+        float prevTibiaAngle;
+        float coxaOffset;
+        float femurOffset;
+        float tibiaOffset;
     public: 
         Adafruit_PWMServoDriver pwm;
         Leg();
-        Leg(int legNum, int coxaPin, int femurPin, int tibiaPin);
-        void setAngles(double x, double y, double z);
+        Leg(byte legNum, byte coxaPin, byte femurPin, byte tibiaPin);
+        void setAngles(float x, float y, float z);
         void updatePos();
         void lift();
-        void setCoxaAngle(double angle);
-        int returnPulseWidht(double angle);
+        void setCoxaAngle(float angle);
+        int returnPulseWidht(float angle);
         void init();
-        void calibrate(double x, double y, double z);
+        void calibrate(float x, float y, float z);
         //Setters
-        void setPins(int coxaPin, int femurPin, int tibiaPin);
-        void setLegNum(int legNum);
+        void setPins(byte coxaPin, byte femurPin, byte tibiaPin);
+        void setLegNum(byte legNum);
 };
 
 #endif

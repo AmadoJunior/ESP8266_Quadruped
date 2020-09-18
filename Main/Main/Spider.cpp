@@ -28,7 +28,7 @@ void Spider::initCalibration(){
       Expected:  
                 x: 100, y: 80, z: 45
       */
-      double actualCoordinates[4][3] = {
+      float actualCoordinates[4][3] = {
         {-95,85,45},
         {-110,-74,55},
         {92.5,97.5,45},
