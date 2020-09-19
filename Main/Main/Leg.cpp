@@ -7,25 +7,45 @@
 
 Leg::Leg(){
     pwm = Adafruit_PWMServoDriver(0x40);
-    coxaLenMm = 27;
+    coxaLenMm = 25;
     femurLenMm = 55;
     tibiaLenMm = 80;
     coxaOffset = 0;
     femurOffset = 0;
     tibiaOffset = 0;
+
+    //Coordinates
+    curCoordinates.x = 0;
+    curCoordinates.y = 0;
+    curCoordinates.z = 0;
+    desiredCoordinates.x = 0;
+    desiredCoordinates.y = 0;
+    desiredCoordinates.z = 0;
+
 }
 
 Leg::Leg(byte legNum, byte coxaPin, byte femurPin, byte tibiaPin) : legNum(legNum), coxaPin(coxaPin), femurPin(femurPin), tibiaPin(tibiaPin) {
     pwm = Adafruit_PWMServoDriver(0x40);
-    coxaLenMm = 27;
+    coxaLenMm = 25;
     femurLenMm = 55;
     tibiaLenMm = 80;
     coxaOffset = 0;
     femurOffset = 0;
     tibiaOffset = 0;
+
+    //Coordinates
+    curCoordinates.x = 0;
+    curCoordinates.y = 0;
+    curCoordinates.z = 0;
+    desiredCoordinates.x = 0;
+    desiredCoordinates.y = 0;
+    desiredCoordinates.z = 0;
+
 }
 void Leg::setAngles(float x, float y, float z){
-    
+    curCoordinates.x = x;
+    curCoordinates.y = y;
+    curCoordinates.z = z;
     //Finding Hypothenuse and Angle of Coxa ==========================
     float w = sqrt(pow(x, 2) + pow(y, 2));
     float coxaAngleR = atan2(y,x);
@@ -46,8 +66,8 @@ void Leg::setAngles(float x, float y, float z){
           //2nd Quadrant -> 90 -> 180
           coxaAngle = coxaAngle - 90;
         }
-        Serial.println("Calculated Angle for Leg 1");
-        Serial.println(coxaAngle);
+        //Serial.println("Calculated Angle for Leg 1");
+        //Serial.println(coxaAngle);
 
     } else if(legNum == 2){
       
@@ -62,8 +82,8 @@ void Leg::setAngles(float x, float y, float z){
         coxaAngle = coxaAngle - 90;
 
       }
-      Serial.println("Calculated Angle for Leg 2");
-      Serial.println(coxaAngle);
+      //Serial.println("Calculated Angle for Leg 2");
+      //Serial.println(coxaAngle);
       
     } else if(legNum == 3){
       
@@ -75,8 +95,8 @@ void Leg::setAngles(float x, float y, float z){
         //4nd Quadrant -0 -> -90
         coxaAngle = 90 + coxaAngle;
       }
-      Serial.println("Calculated Angle for Leg 3");
-      Serial.println(coxaAngle);
+      //Serial.println("Calculated Angle for Leg 3");
+      //Serial.println(coxaAngle);
       
     } else if(legNum == 4){
       
@@ -88,8 +108,8 @@ void Leg::setAngles(float x, float y, float z){
         //4nd Quadrant -0 -> -90
         coxaAngle = 90 + coxaAngle;
       }
-      Serial.println("Calculated Angle for Leg 4");
-      Serial.println(coxaAngle);
+      //Serial.println("Calculated Angle for Leg 4");
+      //Serial.println(coxaAngle);
       
     }
 
@@ -116,9 +136,9 @@ void Leg::setAngles(float x, float y, float z){
     
       //Q2
       float q2 = 180 - alpha;
-      Serial.println("");
-      Serial.println("Q2");
-      Serial.println(q2);
+      //Serial.println("");
+      //Serial.println("Q2");
+      //Serial.println(q2);
     
       //Beta
       q2 = q2 * PI/180;
@@ -140,8 +160,8 @@ void Leg::setAngles(float x, float y, float z){
       //Q1
       float q1 = gamma + beta;
       q2 = q2 * 180/PI;
-      Serial.println("Q1");
-      Serial.println(q1);
+      //Serial.println("Q1");
+      //Serial.println(q1);
 
     //Setting Tibia & Femur ===========================================
 
@@ -232,8 +252,56 @@ void Leg::updatePos(){
     }
 }
 
+void Leg::moveLeg(float xTarget, float yTarget, float zTarget, bool lift){
+  desiredCoordinates.x = xTarget;
+  desiredCoordinates.y = yTarget;
+  desiredCoordinates.z = zTarget;
+
+  if(lift){
+    //Lift Along Z
+    curCoordinates.z += 20;
+    setAngles(curCoordinates.x, curCoordinates.y, curCoordinates.z);
+    updatePos();
+    delay(15);
+
+    while(curCoordinates.x != desiredCoordinates.x ||
+        curCoordinates.y != desiredCoordinates.y ||
+        curCoordinates.z != desiredCoordinates.z){
+
+          //X
+          curCoordinates.x != desiredCoordinates.x ?  setCurCoordinateX(curCoordinates.x > desiredCoordinates.x ? curCoordinates.x-1: curCoordinates.x+1) : false;
+          //Y
+           curCoordinates.y != desiredCoordinates.y ?  setCurCoordinateY(curCoordinates.y > desiredCoordinates.y ? curCoordinates.y-1: curCoordinates.y+1) : false;
+          //Z
+          curCoordinates.z != desiredCoordinates.z ?  setCurCoordinateZ(curCoordinates.z > desiredCoordinates.z ? curCoordinates.z-1: curCoordinates.z+1) : false;
+          setAngles(curCoordinates.x, curCoordinates.y, curCoordinates.z);
+          updatePos();
+
+        }
+
+  } else {
+
+    while(curCoordinates.x >= desiredCoordinates.x ||
+        curCoordinates.y >= desiredCoordinates.y ||
+        curCoordinates.z >= desiredCoordinates.z){
+
+          //X
+          curCoordinates.x != desiredCoordinates.x ?  setCurCoordinateX(curCoordinates.x > desiredCoordinates.x ? curCoordinates.x-1: curCoordinates.x+1) : false;
+          //Y
+           curCoordinates.y != desiredCoordinates.y ?  setCurCoordinateY(curCoordinates.y > desiredCoordinates.y ? curCoordinates.y-1: curCoordinates.y+1) : false;
+          //Z
+          curCoordinates.z != desiredCoordinates.z ?  setCurCoordinateZ(curCoordinates.z > desiredCoordinates.z ? curCoordinates.z-1: curCoordinates.z+1) : false;
+          setAngles(curCoordinates.x, curCoordinates.y, curCoordinates.z);
+          updatePos();
+
+        }
+
+  }
+  delay(30); 
+}
+
 void Leg::init(){
-  Serial.println("Initiation ===========================================================");
+  //Serial.println("Initiation ===========================================================");
     switch(legNum){
         case 1:
             setAngles(-100,80,45);
@@ -269,19 +337,26 @@ void Leg::lift(){
 }
 
 void Leg::calibrate(float x, float y, float z){
-  Serial.println("Calibration ===========================================================");
+  //Serial.println("Calibration ===========================================================");
   setAngles(x, y, z);
   
     coxaOffset =  prevCoxaAngle-coxaAngle;
-    Serial.println("coxaOff");
-    Serial.println(coxaOffset);
+    //Serial.println("coxaOff");
+    //Serial.println(coxaOffset);
     femurOffset = prevFemurAngle-femurAngle;
-    Serial.println("femurOff");
-    Serial.println(femurOffset);
+    //Serial.println("femurOff");
+    //Serial.println(femurOffset);
     tibiaOffset = prevTibiaAngle-tibiaAngle;
-    Serial.println("tibiaOff");
-    Serial.println(tibiaOffset);
+    //Serial.println("tibiaOff");
+    //Serial.println(tibiaOffset);
 
+}
+
+//Setters
+void Leg::setDesiredCoordinates(float x_, float y_, float z_){
+  desiredCoordinates.x = x_;
+  desiredCoordinates.y = y_;
+  desiredCoordinates.z = z_;
 }
 
 void Leg::setCoxaAngle(float angle){
@@ -297,3 +372,19 @@ void Leg::setPins(byte coxa, byte femur, byte tibia){
 void Leg::setLegNum(byte leg){
     legNum = leg;
 }
+
+bool Leg::setCurCoordinateX(float x_){
+  curCoordinates.x = x_;
+  return true;
+}
+
+bool Leg::setCurCoordinateY(float y_){
+  curCoordinates.y = y_;
+  return true;
+}
+
+bool Leg::setCurCoordinateZ(float z_){
+  curCoordinates.z = z_;
+  return true;
+}
+

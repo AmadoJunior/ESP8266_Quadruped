@@ -7,11 +7,11 @@ Spider mySpider(1);
 void setup() {
   Serial.begin(9600);
   mySpider.initPwm();
+  delay(500);
   mySpider.initCalibration();
   
 }
 
 void loop() {
-  //delay(2000);  
-  //mySpider.creepGait();
+  mySpider.creepGait();
 }
