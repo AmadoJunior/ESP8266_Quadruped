@@ -17,7 +17,10 @@ class Spider{
         void initPwm();
         void initCalibration();
         void standBy();
-        void updateAllGradual();
+        void updateAllGradual(bool liftA, bool liftB, bool liftC, bool liftD);
+        void trotGait(String dir, bool rotate);
+        void trotSetUp(String dir, bool rotate);
+        void sit();
 };
 
 #endif
