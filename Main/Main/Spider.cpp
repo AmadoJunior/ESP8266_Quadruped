@@ -104,31 +104,31 @@ void Spider::updateAllGradual(bool liftA, bool liftB, bool liftC, bool liftD){
 
           //X
           (a->curCoordinates.x != a->desiredCoordinates.x) ? 
-            a->setCurCoordinateX(a->curCoordinates.x > a->desiredCoordinates.x ? a->curCoordinates.x-1: a->curCoordinates.x+1) : false;
+            a->setCurCoordinateX(a->curCoordinates.x > a->desiredCoordinates.x ? a->curCoordinates.x-2: a->curCoordinates.x+2) : false;
           (b->curCoordinates.x != b->desiredCoordinates.x) ?  
-            b->setCurCoordinateX(b->curCoordinates.x > b->desiredCoordinates.x ? b->curCoordinates.x-1: b->curCoordinates.x+1) : false;
+            b->setCurCoordinateX(b->curCoordinates.x > b->desiredCoordinates.x ? b->curCoordinates.x-2: b->curCoordinates.x+2) : false;
           (c->curCoordinates.x != c->desiredCoordinates.x) ? 
-            c->setCurCoordinateX(c->curCoordinates.x > c->desiredCoordinates.x ? c->curCoordinates.x-1: c->curCoordinates.x+1) : false;
+            c->setCurCoordinateX(c->curCoordinates.x > c->desiredCoordinates.x ? c->curCoordinates.x-2: c->curCoordinates.x+2) : false;
           (d->curCoordinates.x != d->desiredCoordinates.x) ? 
-            d->setCurCoordinateX(d->curCoordinates.x > d->desiredCoordinates.x ? d->curCoordinates.x-1: d->curCoordinates.x+1) : false;
+            d->setCurCoordinateX(d->curCoordinates.x > d->desiredCoordinates.x ? d->curCoordinates.x-2: d->curCoordinates.x+2) : false;
           //Y
           (a->curCoordinates.y != a->desiredCoordinates.y) ? 
-            a->setCurCoordinateY(a->curCoordinates.y > a->desiredCoordinates.y ? a->curCoordinates.y-1: a->curCoordinates.y+1) : false;
+            a->setCurCoordinateY(a->curCoordinates.y > a->desiredCoordinates.y ? a->curCoordinates.y-2: a->curCoordinates.y+2) : false;
           (b->curCoordinates.y != b->desiredCoordinates.y) ?  
-            b->setCurCoordinateY(b->curCoordinates.y > b->desiredCoordinates.y ? b->curCoordinates.y-1: b->curCoordinates.y+1) : false;
+            b->setCurCoordinateY(b->curCoordinates.y > b->desiredCoordinates.y ? b->curCoordinates.y-2: b->curCoordinates.y+2) : false;
           (c->curCoordinates.y != c->desiredCoordinates.y) ? 
-            c->setCurCoordinateY(c->curCoordinates.y > c->desiredCoordinates.y ? c->curCoordinates.y-1: c->curCoordinates.y+1) : false;
+            c->setCurCoordinateY(c->curCoordinates.y > c->desiredCoordinates.y ? c->curCoordinates.y-2: c->curCoordinates.y+2) : false;
           (d->curCoordinates.y != d->desiredCoordinates.y) ? 
-            d->setCurCoordinateY(d->curCoordinates.y > d->desiredCoordinates.y ? d->curCoordinates.y-1: d->curCoordinates.y+1) : false;
+            d->setCurCoordinateY(d->curCoordinates.y > d->desiredCoordinates.y ? d->curCoordinates.y-2: d->curCoordinates.y+2) : false;
           //Z
           (a->curCoordinates.z != a->desiredCoordinates.z) ? 
-            a->setCurCoordinateZ(a->curCoordinates.z > a->desiredCoordinates.z ? a->curCoordinates.z-0.5: a->curCoordinates.z+0.5) : false;
+            a->setCurCoordinateZ(a->curCoordinates.z > a->desiredCoordinates.z ? a->curCoordinates.z-1: a->curCoordinates.z+1) : false;
           (b->curCoordinates.z != b->desiredCoordinates.z) ?  
-            b->setCurCoordinateZ(b->curCoordinates.z > b->desiredCoordinates.z ? b->curCoordinates.z-0.5: b->curCoordinates.z+0.5) : false;
+            b->setCurCoordinateZ(b->curCoordinates.z > b->desiredCoordinates.z ? b->curCoordinates.z-1: b->curCoordinates.z+1) : false;
           (c->curCoordinates.z != c->desiredCoordinates.z) ? 
-            c->setCurCoordinateZ(c->curCoordinates.z > c->desiredCoordinates.z ? c->curCoordinates.z-0.5: c->curCoordinates.z+0.5) : false;
+            c->setCurCoordinateZ(c->curCoordinates.z > c->desiredCoordinates.z ? c->curCoordinates.z-1: c->curCoordinates.z+1) : false;
           (d->curCoordinates.z != d->desiredCoordinates.z) ? 
-            d->setCurCoordinateZ(d->curCoordinates.z > d->desiredCoordinates.z ? d->curCoordinates.z-0.5: d->curCoordinates.z+0.5) : false;
+            d->setCurCoordinateZ(d->curCoordinates.z > d->desiredCoordinates.z ? d->curCoordinates.z-1: d->curCoordinates.z+1) : false;
 
           //Setting Angles and Updating
           a->setAngles(a->curCoordinates.x, a->curCoordinates.y, a->curCoordinates.z);
@@ -145,18 +145,18 @@ void Spider::updateAllGradual(bool liftA, bool liftB, bool liftC, bool liftD){
 }
 
 void Spider::standBy(){
-  a->setDesiredCoordinates(-65,65,-80);
-  b->setDesiredCoordinates(-65,-65,-80);
-  c->setDesiredCoordinates(65,65,-80);
-  d->setDesiredCoordinates(65,-65,-80);
+  a->setDesiredCoordinates(-66,66,-80);
+  b->setDesiredCoordinates(-66,-66,-80);
+  c->setDesiredCoordinates(66,66,-80);
+  d->setDesiredCoordinates(66,-66,-80);
   updateAllGradual(false, false,  false, false);
 }
 
 void Spider::sit(){
-  a->setDesiredCoordinates(-81,81,0);
-  b->setDesiredCoordinates(-81,-81,0);
-  c->setDesiredCoordinates(81,81,0);
-  d->setDesiredCoordinates(81,-81,0);
+  a->setDesiredCoordinates(-82,82,0);
+  b->setDesiredCoordinates(-82,-82,0);
+  c->setDesiredCoordinates(82,82,0);
+  d->setDesiredCoordinates(82,-82,0);
   updateAllGradual(false, false,  false, false);
 }
 
@@ -208,42 +208,42 @@ void Spider::trotSetUp(String dir, bool rotate){
   if(!rotate){
     if(dir == "up"){
       //SetUp Step
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-15, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-15, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+15, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+15, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-24, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-24, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+24, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+24, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "down"){
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+15, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+15, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-15, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-15, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+24, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+24, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-24, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-24, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "left"){
-      a->setDesiredCoordinates(a->curCoordinates.x+15, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+15, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x-15, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-15, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x+24, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+24, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-24, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-24, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "right"){
-      a->setDesiredCoordinates(a->curCoordinates.x-15, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-15, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x+15, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+15, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-24, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-24, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+24, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+24, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     }
   } else {
-    if(dir == "left"){
-      a->setDesiredCoordinates(a->curCoordinates.x+15, a->curCoordinates.y+15, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-15, d->curCoordinates.y-15, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x+15, c->curCoordinates.y-15, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-15, b->curCoordinates.y+15, b->curCoordinates.z);
+    if(dir == "right"){
+      a->setDesiredCoordinates(a->curCoordinates.x+16, a->curCoordinates.y+16, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-16, d->curCoordinates.y-16, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+16, c->curCoordinates.y-16, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-16, b->curCoordinates.y+16, b->curCoordinates.z);
       updateAllGradual(false,  false, false, false);
     } else {
-      a->setDesiredCoordinates(a->curCoordinates.x-15, a->curCoordinates.y-15, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+15, d->curCoordinates.y+15, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x-15, c->curCoordinates.y+15, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+15, b->curCoordinates.y-15, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-16, a->curCoordinates.y-16, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+16, d->curCoordinates.y+16, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-16, c->curCoordinates.y+16, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+16, b->curCoordinates.y-16, b->curCoordinates.z);
       updateAllGradual(false,  false, false, false);
     }
   }
@@ -255,92 +255,88 @@ void Spider::trotGait(String dir, bool rotate){
     if(dir == "up"){
       //Step 1
       //Serial.println("Trooting");
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-30, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+48, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+48, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-48, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-48, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
 
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+30, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-48, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-48, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+48, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+48, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "down"){
       //Step 1
       //Serial.println("Trooting");
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+30, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y-48, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y-48, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y+48, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y+48, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
 
-      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-30, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x, a->curCoordinates.y+48, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x, d->curCoordinates.y+48, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x, c->curCoordinates.y-48, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x, b->curCoordinates.y-48, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "left"){
       //Step 1
       //Serial.println("Trooting");
-      a->setDesiredCoordinates(a->curCoordinates.x-30, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-30, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x+30, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+30, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-48, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-48, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+48, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+48, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
 
-      a->setDesiredCoordinates(a->curCoordinates.x+30, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+30, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x-30, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-30, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x+48, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+48, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-48, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-48, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     } else if(dir == "right"){
       //Step 1
       //Serial.println("Trooting");
-      a->setDesiredCoordinates(a->curCoordinates.x+30, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+30, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x-30, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-30, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x+48, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+48, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-48, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-48, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
 
-      a->setDesiredCoordinates(a->curCoordinates.x-30, a->curCoordinates.y, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-30, d->curCoordinates.y, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x+30, c->curCoordinates.y, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+30, b->curCoordinates.y, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-48, a->curCoordinates.y, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-48, d->curCoordinates.y, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+48, c->curCoordinates.y, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+48, b->curCoordinates.y, b->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
     }
   } else {
-    if(dir == "left"){
+    if(dir == "right"){
 
-      a->setDesiredCoordinates(a->curCoordinates.x-30, a->curCoordinates.y-30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+30, d->curCoordinates.y+30, d->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-32, a->curCoordinates.y-32, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+32, d->curCoordinates.y+32, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+32, c->curCoordinates.y-32, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-32, b->curCoordinates.y+32, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
 
-      c->setDesiredCoordinates(c->curCoordinates.x-30, c->curCoordinates.y+30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+30, b->curCoordinates.y-30, b->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-32, c->curCoordinates.y+32, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+32, b->curCoordinates.y-32, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x+32, a->curCoordinates.y+32, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-32, d->curCoordinates.y-32, d->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
 
-      a->setDesiredCoordinates(a->curCoordinates.x+30, a->curCoordinates.y+30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-30, d->curCoordinates.y-30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x+30, c->curCoordinates.y-30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-30, b->curCoordinates.y+30, b->curCoordinates.z);
-      updateAllGradual(false,  false, false, false);
+    } else if(dir == "left") {
 
-    } else if(dir == "right") {
-
-      c->setDesiredCoordinates(c->curCoordinates.x+30, c->curCoordinates.y-30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x-30, b->curCoordinates.y+30, b->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x+32, c->curCoordinates.y-32, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x-32, b->curCoordinates.y+32, b->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x-32, a->curCoordinates.y-32, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x+32, d->curCoordinates.y+32, d->curCoordinates.z);
       updateAllGradual(false,  true, true, false);
 
-      a->setDesiredCoordinates(a->curCoordinates.x+30, a->curCoordinates.y+30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x-30, d->curCoordinates.y-30, d->curCoordinates.z);
+      a->setDesiredCoordinates(a->curCoordinates.x+32, a->curCoordinates.y+32, a->curCoordinates.z);
+      d->setDesiredCoordinates(d->curCoordinates.x-32, d->curCoordinates.y-32, d->curCoordinates.z);
+      c->setDesiredCoordinates(c->curCoordinates.x-32, c->curCoordinates.y+32, c->curCoordinates.z);
+      b->setDesiredCoordinates(b->curCoordinates.x+32, b->curCoordinates.y-32, b->curCoordinates.z);
       updateAllGradual(true,  false, false, true);
-
-      a->setDesiredCoordinates(a->curCoordinates.x-30, a->curCoordinates.y-30, a->curCoordinates.z);
-      d->setDesiredCoordinates(d->curCoordinates.x+30, d->curCoordinates.y+30, d->curCoordinates.z);
-      c->setDesiredCoordinates(c->curCoordinates.x-30, c->curCoordinates.y+30, c->curCoordinates.z);
-      b->setDesiredCoordinates(b->curCoordinates.x+30, b->curCoordinates.y-30, b->curCoordinates.z);
-      updateAllGradual(false,  false, false, false);
 
     }
   }
